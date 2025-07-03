@@ -12,8 +12,12 @@ export function validateDag(nodes: Node[], edges: Edge[]): DagValidationResult {
   const adj: Record<string, string[]> = {};
   nodes.forEach((n) => (adj[n.id] = []));
   edges.forEach((e) => {
+    if (!e.source || !e.target) return;
     if (e.source === e.target) reasons.push('Self-loops are not allowed.');
-    if (adj[e.source]) adj[e.source].push(e.target);
+    const targets = adj[e.source];
+    if (Array.isArray(targets)) {
+      targets.push(e.target);
+    }
   });
   // Check all nodes connected
   nodes.forEach((n) => {
@@ -26,9 +30,12 @@ export function validateDag(nodes: Node[], edges: Edge[]): DagValidationResult {
   function dfs(v: string): boolean {
     visited[v] = true;
     recStack[v] = true;
-    for (const neighbor of adj[v]) {
-      if (!visited[neighbor] && dfs(neighbor)) return true;
-      else if (recStack[neighbor]) return true;
+    const neighbors = adj[v];
+    if (neighbors) {
+      for (const neighbor of neighbors) {
+        if (!visited[neighbor] && dfs(neighbor)) return true;
+        else if (recStack[neighbor]) return true;
+      }
     }
     recStack[v] = false;
     return false;

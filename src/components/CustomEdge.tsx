@@ -28,14 +28,9 @@ const CustomEdge: React.FC<EdgeProps> = ({
     <>
       <BaseEdge
         path={edgePath}
-        className={`
-          stroke-3 transition-all duration-200
-          ${selected 
-            ? 'stroke-purple-500 shadow-lg' 
-            : 'stroke-gray-400 hover:stroke-blue-500'
-          }
-        `}
         style={{
+          stroke: selected ? '#8b5cf6' : '#9ca3af',
+          strokeWidth: 3,
           filter: selected ? 'drop-shadow(0 0 8px rgba(147, 51, 234, 0.3))' : undefined,
         }}
       />

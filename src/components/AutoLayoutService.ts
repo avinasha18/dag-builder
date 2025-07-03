@@ -1,5 +1,6 @@
 import type { Edge, Node } from 'reactflow';
 import dagre from 'dagre';
+import { MarkerType } from 'reactflow';
 
 const nodeWidth = 180;
 const nodeHeight = 60;
@@ -16,13 +17,17 @@ export function getLayoutedElements(
   // Create edges to form a valid DAG (linear flow)
   const newEdges: Edge[] = [];
   for (let i = 0; i < nodes.length - 1; i++) {
-    newEdges.push({
-      id: `edge-${nodes[i].id}-${nodes[i + 1].id}`,
-      source: nodes[i].id,
-      target: nodes[i + 1].id,
-      type: 'custom',
-      markerEnd: { type: 'arrowclosed' },
-    });
+    const sourceNode = nodes[i];
+    const targetNode = nodes[i + 1];
+    if (sourceNode && targetNode) {
+      newEdges.push({
+        id: `edge-${sourceNode.id}-${targetNode.id}`,
+        source: sourceNode.id,
+        target: targetNode.id,
+        type: 'custom',
+        markerEnd: { type: MarkerType.ArrowClosed },
+      });
+    }
   }
 
   // Use dagre to layout the nodes
