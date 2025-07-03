@@ -168,10 +168,13 @@ src/
 
 ## 📱 Demo & Screenshots
 
-[Add your demo link here]
+### Live Demo
+🌐 **Live Application**: [https://dag-editor.vercel.app/](https://dag-editor.vercel.app/)
 
 ### Screenshots
-[Add screenshots showing the main interface, validation states, and auto layout]
+![DAG Builder Interface](./public/image.png)
+
+*Main interface showing the DAG Builder with nodes, edges, and validation status*
 
 ## 🤝 Contributing
 
